@@ -19,3 +19,7 @@ chown -R root:root /etc/openvpn/*
 
 ### Script de inicialização
 
+```
+sudo wget https://github.com/concrete-aecio-barreto-junior/vpnVV/blob/master/vpnVV.sh -O /etc/init.d/vpnVV.sh
+chmod 755 /etc/init.d/vpnVV.sh
+```
