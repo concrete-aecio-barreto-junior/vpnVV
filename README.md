@@ -7,7 +7,7 @@
 #### Instalar requerimentos
 ```
 $ sudo apt update
-$ sudo apt install openvpn resolvconf -y
+$ sudo apt install openvpn openvpn-systemd-resolved -y
 ```
 
 #### Extrair certificado
@@ -43,11 +43,11 @@ foreign_option_1='dhcp-option DNS 10.200.4.18'
 ```
 
 #### Habilitar o script Update/DNS
-No arquivo de configuração "/etc/openvpn/*/*.ovpn" realizar o append dos seguintes atriutos:
+No arquivo de configuração "/etc/openvpn/*/*.ovpn" acrescentar as seguintes linhas:
 ```
-script-security 2
-up /etc/openvpn/update-resolv-conf
-down /etc/openvpn/update-resolv-conf
+up /etc/openvpn/update-systemd-resolved
+down /etc/openvpn/update-systemd-resolved
+down-pre
 ```
 
 #### `*OPCIONAL*` Script de inicialização
