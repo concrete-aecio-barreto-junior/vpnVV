@@ -43,7 +43,7 @@ foreign_option_1='dhcp-option DNS 10.200.4.18'
 ```
 
 #### Habilitar o script Update/DNS
-No arquivo de configuração "/etc/openvpn/*/*.ovpn" acrescentar as seguintes linhas:
+No arquivo de configuração "/etc/openvpn\/*\/*.ovpn" acrescentar as seguintes linhas:
 ```
 up /etc/openvpn/update-systemd-resolved
 down /etc/openvpn/update-systemd-resolved
