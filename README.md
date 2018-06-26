@@ -1,67 +1,47 @@
 # OpenVPN Client
 
+> ** Premissa: ** Obter pacote de arquivos contendo arquivos (configuração, certificado e key).
+
 ## Linux  (Ubuntu 18.04 LTS)
 
-### Instalação
-```
-$ sudo apt update && sudo apt install openvpn
-```
-
-### Configuração
-Extrair e ajustar atributos/owner dos arquivos de configuração/credencais
-```
-sudo unzip csspgw01-UDP4-53-*-config.zip -d /etc/openvpn/
-chown -R root:root /etc/openvpn/*
-```
-
-### Script de inicialização
-```
-sudo wget https://raw.githubusercontent.com/concrete-aecio-barreto-junior/vpnVV/master/vpnVV.sh -O /etc/init.d/vpnVV.sh
-sudo chmod 755 /etc/init.d/vpnVV.sh
-```
-
-### Premissa
-Obter pacote de arquivos contendo arquivos (configuração, certificado e key)
-
-Instalação/Linux
-
-### Instalar requerimentos
+#### Instalar requerimentos
 ```
 $ sudo apt update
 $ sudo apt install openvpn resolvconf -y
 ```
 
-### Extrair certificado
+#### Extrair certificado
+Extrair e ajustar atributos/owner dos arquivos de configuração/credencais
 Através do comando a seguir o pacote irá ser descompactado no dir /etc/openvpn
 ```
 sudo unzip csspgw01-UDP4-53-*-config.zip -d /etc/openvpn/update-resolv-conf
 ```
 
-### [ Opcional ] Garantir credentials file
+#### Garantir credentials file `Opcional`
 Esta definição é útil p/ conectar sem a necessidade de digitar login/senha
 
-Criar arquivo com duas linhas contendo usuario e senha, nas linhas 1 e 2, respectivamente
+* Criar arquivo com duas linhas contendo usuario e senha, nas linhas 1 e 2, respectivamente
 ```
 vim /etc/openvpn/vpnlogin
 ```
 
-Acrescentar o arquivo de credenciais criado na linha que contém auth-user-pass conforme segue:
+* Acrescentar o arquivo de credenciais criado na linha que contém auth-user-pass conforme segue:
 ```
 auth-user-pass /etc/openvpn/vpnlogin
 ```
 
-### Assegurar leitura apenas p/ root
+#### Assegurar leitura apenas p/ root
 ```
 chmod 400 /etc/openvpn/vpnlogin
 ```
 
-### Configurar o update DNS
+#### Configurar o update DNS
 No inicio do script /etc/openvpn/update-resolv-conf declarar a seguinte variável
 ```
 foreign_option_1='dhcp-option DNS 10.200.4.18'
 ```
 
-### Habilitar o script Update/DNS
+#### Habilitar o script Update/DNS
 No arquivo de configuração "/etc/openvpn/*/*.ovpn" realizar o append dos seguintes atriutos:
 ```
 script-security 2
@@ -69,28 +49,34 @@ up /etc/openvpn/update-resolv-conf
 down /etc/openvpn/update-resolv-conf
 ```
 
-### Iniciar o client:
+#### Script de inicialização
+```
+sudo wget https://raw.githubusercontent.com/concrete-aecio-barreto-junior/vpnVV/master/vpnVV.sh -O /etc/init.d/vpnVV.sh
+sudo chmod 755 /etc/init.d/vpnVV.sh
+```
+
+#### Iniciar o client:
 Executar o binário mencioando o arquivo de configuracao ".ovpn" como argumento
 ```
 $ sudo openvpn /etc/openvpn/*/*.ovpn
 ```
 
-### Validando
+#### Validando
 Verificar interface de tunel e endereçamento IP
 
 ```
 $ sudo ip addr
 ```
 
-### Verificar rotas adicionadas
+#### Verificar rotas adicionadas
 ```
 $ sudo netstat -nr
 ```
 
-### Verificar DNS adicionado
+#### Verificar DNS adicionado
 ```
 $ grep nameserver /etc/resolv.conf
 ```
 
-### Parar o cliente
+#### Parar o cliente
 Na shell onde foi iniciado o cliente, pressionar "Ctrl+C"
