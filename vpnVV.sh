@@ -14,6 +14,8 @@
 #
 ## --- Variaveis de configuracao --- ##
 ArquivoConfiguracao=/etc/openvpn/csspgw01-UDP4-53-raphaelalencar/csspgw01-UDP4-53-raphaelalencar.ovpn
+InterfaceTunel="tun0"
+DNS="10.200.4.18"
 
 ## --- Variaveis do script --- ##
 ArquivoLog=/var/log/openvpn.log
@@ -24,7 +26,9 @@ ArquivoStatus=/run/openvpn/client.status
 _Status(){
    local RC=0
    pgrep --list-full openvpn || local RC=$?
-   [ $RC -eq 0 ] && { cat $ArquivoStatus; netstat -r; }
+   ip addr show ${InterfaceTunel} || local RC=$?
+   netstat -nr | grep -v grep | grep "$InterfaceTunel"  || local RC=$?
+   grep "$DNS" /etc/resolv.conf || local RC=$?
    return $RC
 }
 
@@ -61,6 +65,10 @@ _Restart(){
    return $RC
 }
 
+_Log(){
+  tail -f $ArquivoLog
+}
+
 ## --- Inicio do Script --- ## 
 
 if [ $# -eq 1 ]
@@ -71,6 +79,7 @@ then
       start)   { _Start;   } ;;
       stop)    { _Stop;    } ;;
       restart) { _Restart; } ;;
+      log)     { _Log;     } ;;
       *) { echo Use corretamente os params; } ;;
    esac
 else
