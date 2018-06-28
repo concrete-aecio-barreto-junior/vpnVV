@@ -28,7 +28,7 @@ _Status(){
    pgrep --list-full openvpn || local RC=$?
    ip addr show ${InterfaceTunel} || local RC=$?
    netstat -nr | grep -v grep | grep "$InterfaceTunel"  || local RC=$?
-   grep "$DNS" /etc/resolv.conf || local RC=$?
+   # grep "$DNS" /etc/resolv.conf || local RC=$?
    return $RC
 }
 
@@ -55,6 +55,10 @@ _Start(){
          --config $ArquivoConfiguracao \
         # --auth-nocache
       } || local RC=$?
+   fi
+   if [ $RC -eq 0 ]
+   then
+      _Status
    fi
    return $?
 }

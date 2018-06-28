@@ -78,7 +78,7 @@ $ sudo netstat -nr
 
 * Verificar DNS:
 ```
-$ nslookup bitbuckete.viavarejo.com.br
+$ nslookup bitbucket.viavarejo.com.br
 ```
 
 #### Parar o cliente
