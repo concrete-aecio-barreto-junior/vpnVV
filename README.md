@@ -18,7 +18,7 @@ sudo chown -R root:root /etc/openvpn/
 
 ```
 
-#### `*OPCIONAL*` Garantir credentials file 
+#### Garantir arquivon de credenciais
 Esta definição é útil p/ conectar sem a necessidade de digitar login/senha
 
 * Criar arquivo com duas linhas contendo usuario e senha, nas linhas 1 e 2, respectivamente
@@ -28,6 +28,7 @@ vim /etc/openvpn/vpnlogin
 
 * Acrescentar o arquivo de credenciais criado na linha que contém auth-user-pass conforme segue:
 ```
+vim /etc/openvpn/*/*.ovpn
 auth-user-pass /etc/openvpn/vpnlogin
 ```
 
@@ -36,21 +37,16 @@ auth-user-pass /etc/openvpn/vpnlogin
 chmod 400 /etc/openvpn/vpnlogin
 ```
 
-#### Configurar o update DNS
-No inicio do script /etc/openvpn/update-resolv-conf declarar a seguinte variável
-```
-foreign_option_1='dhcp-option DNS 10.200.4.18'
-```
-
 #### Habilitar o script Update/DNS
 No arquivo de configuração "/etc/openvpn\/*\/*.ovpn" acrescentar as seguintes linhas:
 ```
+script-security 2
 up /etc/openvpn/update-systemd-resolved
 down /etc/openvpn/update-systemd-resolved
 down-pre
 ```
 
-#### `*OPCIONAL*` Script de inicialização
+#### Script de inicialização
 ```
 sudo wget https://raw.githubusercontent.com/concrete-aecio-barreto-junior/vpnVV/master/vpnVV.sh -O /etc/init.d/vpnVV.sh
 sudo chmod 755 /etc/init.d/vpnVV.sh
