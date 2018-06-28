@@ -1,4 +1,4 @@
-# OpenVPN Client
+# OpenVPN Cliente
 
 > Premissa: Obter pacote de arquivos contendo arquivos (configuração, certificado e key).
 
@@ -11,16 +11,16 @@ $ sudo apt install openvpn openvpn-systemd-resolved -y
 ```
 
 #### Extrair certificado
-Extrair os arquivos de configuração/credencais e garantir o root como owner:
+Extrair os arquivos de configuração/credenciais e garantir o root como owner:
 ```
 sudo unzip csspgw01-UDP4-53-*-config.zip -d /etc/openvpn/
 sudo chown -R root:root /etc/openvpn/ 
 ```
 
-#### Garantir arquivo de credenciais (opcicional)
-Esta definição é útil p/ conectar sem a necessidade de digitar login/senha:
+#### Garantir arquivo de credenciais (opcional)
+Esta definição é útil para conectar sem a necessidade de digitar login/senha:
 
-* Criar arquivo com duas linhas contendo usuario e senha, nas linhas 1 e 2, respectivamente:
+* Criar arquivo com duas linhas contendo usuário e senha, nas linhas 1 e 2, respectivamente:
 ```
 vim /etc/openvpn/vpnlogin
 ```
@@ -52,9 +52,9 @@ sudo wget https://raw.githubusercontent.com/concrete-aecio-barreto-junior/vpnVV/
 sudo chmod 755 /etc/init.d/vpnVV.sh
 ```
 
-#### Iniciar o client
+#### Iniciar o cliente
 
-* Opção 1: Executar o binário mencionando o arquivo de configuracao ".ovpn" como argumento:
+* Opção 1: Executar o binário mencionando o arquivo de configuração ".ovpn" como argumento:
 ```
 $ sudo openvpn /etc/openvpn/*/*.ovpn
 ```
@@ -64,9 +64,9 @@ $ sudo openvpn /etc/openvpn/*/*.ovpn
 sudo /etc/init.d/vpnVV start
 ```
 
-#### Validar tunel
+#### Validar túnel
 
-* Verificar interface de tunel e endereçamento IP:
+* Verificar interface de túnel e endereçamento IP:
 ```
 $ sudo ip addr
 ```
@@ -83,3 +83,4 @@ $ nslookup bitbucket.viavarejo.com.br
 
 #### Parar o cliente
 Na shell onde foi iniciado o cliente, pressionar `"Ctrl+C"` ou através do script `sudo /etc/init.d/vpnVV stop`
+
